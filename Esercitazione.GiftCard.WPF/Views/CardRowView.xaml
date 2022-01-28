@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Esercitazione.GiftCard.WPF.Views.CardRowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Esercitazione.GiftCard.WPF.Views"
+             xmlns:converter="clr-namespace:Esercitazione.GiftCard.WPF.Converter"
+             xmlns:vm="clr-namespace:Esercitazione.GiftCard.WPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="800"             
+             d:DataContext="{d:DesignInstance Type=vm:CardRowViewModel}">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+    <Grid>        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>                     
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Border>
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF4CF4FF" Offset="0.0"/>
+                    <GradientStop Color="#FFADF1AE" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="0,0,33,0">
+            <TextBlock Text="{Binding Importo}" FontSize="15" FontWeight="Bold" Margin="4"/>
+            <TextBlock Text="{Binding Destinatario}" FontSize="15" FontWeight="Bold" Margin="4"/>
+        </StackPanel>
+        <Button Grid.Row="0" Height="50" Grid.Column="1" Command="{Binding UpdateCommand}">
+            Update
+        </Button>
+        <Button Grid.Row="0" Height="50" Grid.Column="2" Command="{Binding DeleteCommand}" RenderTransformOrigin="0.565,0.56">
+            Delete
+        </Button>
+        <CheckBox Grid.Row="0" Grid.Column="3" IsChecked="{Binding Path=ViewGiftCard}" Grid.ColumnSpan="4">Mostra Dettagli</CheckBox>
+        <Grid>
+            <Grid Visibility="{Binding Path=ViewGiftCard, Converter={StaticResource BoolToVisibility}}">        
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>                   
+                </Grid.RowDefinitions>
+                <StackPanel Margin="10">  
+                 
+                <TextBlock Margin="20" Grid.Column="1" Text="{Binding Path=Id}"/>                 
+                <TextBlock Grid.Column="1" Text="{Binding Path=Mittente}"/>                    
+                    <TextBlock Grid.Column="0" Text="{Binding Path=DataScadenza}"/>
+                <TextBlock Grid.Column="0" Text="{Binding Path=Messaggio}"/>                   
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
